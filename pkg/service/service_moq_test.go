@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/mock/gomock"
 
 	"github.com/alexanderdotcom/mockgen_example/pkg/service"
 	moq_serivce "github.com/alexanderdotcom/mockgen_example/pkg/service/mocks/moq"
@@ -147,8 +146,6 @@ func TestBankAccountMoq(t *testing.T) {
 			t.Skip()
 		}
 		t.Run(tt.name, func(t *testing.T) {
-			ctrl := gomock.NewController(t)
-			defer ctrl.Finish()
 			ctx := context.TODO()
 
 			err := service.DepositHappensTwiceTransferMoney(ctx, tt.bank(t), tt.fromAddress, tt.fromAddress, tt.amount)
@@ -165,8 +162,6 @@ func TestBankAccountMoq(t *testing.T) {
 			t.Skip()
 		}
 		t.Run(tt.name, func(t *testing.T) {
-			ctrl := gomock.NewController(t)
-			defer ctrl.Finish()
 			ctx := context.TODO()
 
 			err := service.DepositBeforeWithdrawTransferMoney(ctx, tt.bank(t), tt.fromAddress, tt.fromAddress, tt.amount)
