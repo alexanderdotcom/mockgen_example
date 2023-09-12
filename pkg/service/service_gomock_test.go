@@ -131,4 +131,22 @@ func TestBankAccount(t *testing.T) {
 		})
 	}
 
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if skipBrokenTests {
+				t.Skip()
+			}
+			ctrl := gomock.NewController(t)
+			defer ctrl.Finish()
+			ctx := context.TODO()
+
+			err := service.DepositNeverHappensTransferMoney(ctx, tt.bank(ctrl, t), tt.fromAddress, tt.fromAddress, tt.amount)
+			if tt.wantErr {
+				require.Error(t, err)
+				return
+			}
+			require.NoError(t, err)
+		})
+	}
+
 }
